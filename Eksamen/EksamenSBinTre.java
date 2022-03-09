@@ -150,35 +150,37 @@ public class EksamenSBinTre<T> {
             } else {                                        //Hvis p ikke har barn og er høyrebarn
                 q.høyre = r;
             }
-        } else {                                            //Hvis p har to barn
+        } else { //Hvis p har to barn
             Node<T> s = p;
             Node<T> t = p.høyre;
 
-            while (t.venstre != null) {                     //Traverserer treet inorden for å finne første verdi inorden for det høyre subtreet til p.
+            while (t.venstre != null) { //Traverserer treet inorden for å finne første verdi inorden for det høyre subtreet til p.
                 s = t;
                 t = t.venstre;
             }
 
-            p.verdi = t.verdi;                              //Gir verdien som skal fjernes samme verdi som verdien nederst til venstre i p sitt høyre subtre.
+            p.verdi = t.verdi; //Gir verdien som skal fjernes samme verdi som verdien nederst til venstre i p sitt høyre subtre.
 
-            if(s != p) {                                    //Hvis verdien som skal fjernes ikke har barnebarn.
+            if (s != p) { //Hvis verdien som skal fjernes ikke har barnebarn.
                 s.venstre = t.høyre;
-            } else {                                        //Hvis verdien som skal fjernes har barnebarn.
+            } else { //Hvis verdien som skal fjernes har barnebarn.
                 s.høyre = t.høyre;
             }
         }
+        endringer++;
         antall--;
         return true;
     }
 
     public int fjernAlle(T verdi) {
         int antallAvVerdi = 0;
-        if(!tom()) {                                        //Hvis treet er tomt returneres 0.
-            while (inneholder(verdi)) {                     //Mens treet inneholder verdien skal den fjernes og antall økes.
+        if (!tom()) { //Hvis treet er tomt returneres 0.
+            while (inneholder(verdi)) { //Mens treet inneholder verdien skal den fjernes og antall økes.
                 fjern(verdi);
                 antallAvVerdi++;
             }
         }
+        endringer++;
         return antallAvVerdi;
     }
 
@@ -205,6 +207,7 @@ public class EksamenSBinTre<T> {
         }
         rot = null;
         antall = 0;
+        endringer = 0;
     }
 
     //Rekursiv nullstill metode. Den nullstiller alt unntatt selve rotnoden i preorden.
